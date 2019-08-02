@@ -1,18 +1,27 @@
 // Models da aplicação 
 class Expense {
-    constructor (ano, mes, dia, tipo, descricao, valor) {
+    constructor(ano, mes, dia, tipo, descricao, valor) {
         this.ano = ano,
-        this.mes = mes,
-        this.dia = dia,
-        this.tipo = tipo,
-        this.descricao = descricao,
-        this.valor = valor
+            this.mes = mes,
+            this.dia = dia,
+            this.tipo = tipo,
+            this.descricao = descricao,
+            this.valor = valor
     }
+
+    validator() {
+        for (const i in this) {
+            if (this[i] == undefined || this[i] == '' || this[i] == null) {
+                return false
+            }
+        }
+        return true
+    } 
 }
 
 // Classe que simula um banco de dados com localStorage
 class DB {
-    constructor () {
+    constructor() {
         let id = localStorage.getItem('id')
 
         if (id === null) {
@@ -47,9 +56,19 @@ function registerExpense() {
     let type = document.querySelector('#tipo')
     let description = document.querySelector('#descricao')
     let val = document.querySelector('#valor')
-    
-    let expense = new Expense(year.value, month.value, day.value, type.value, description.value, val.value)
-    
-    db.setStorage(expense)
+
+    let expense = new Expense(
+        year.value,
+        month.value,
+        day.value,
+        type.value,
+        description.value,
+        val.value
+    )
+
+    if (expense.validator()) {
+        db.setStorage(expense)
+        console.log('Válido')
+    } console.log('Inválido')
 }
 
