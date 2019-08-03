@@ -56,6 +56,7 @@ function registerExpense() {
     let type = document.querySelector('#tipo')
     let description = document.querySelector('#descricao')
     let val = document.querySelector('#valor')
+    let button = document.querySelector('#btnAdd')
 
     let expense = new Expense(
         year.value,
@@ -68,7 +69,27 @@ function registerExpense() {
 
     if (expense.validator()) {
         db.setStorage(expense)
+        handlerError('success', 'Despesa cadastrada com sucesso!')
         console.log('Válido')
-    } console.log('Inválido')
+    } else {
+        console.log('Inválido')
+        handlerError('danger', 'Não foi possível cadastrar sua despesa!')
+    }
+}
+
+function handlerError(type, message) {
+    let alert = document.querySelector('#handlerError') 
+
+    if (alert.classList.contains('fade')) { // Verificando se o alert está em modo fade(escondido)
+        alert.classList.remove('fade')
+        setTimeout(() => {
+            alert.classList.add('fade')
+        }, 3000); // Visível por 3s
+    }
+
+    alert.classList.add(`alert-${type}`) 
+    alert.textContent = message
+
+
 }
 
