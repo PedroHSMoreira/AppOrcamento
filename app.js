@@ -71,7 +71,6 @@ function registerExpense() {
     let type = document.querySelector('#tipo')
     let description = document.querySelector('#descricao')
     let val = document.querySelector('#valor')
-    let button = document.querySelector('#btnAdd')
 
     let expense = new Expense(
         year.value,
@@ -86,9 +85,16 @@ function registerExpense() {
         db.setStorage(expense)
         messageAlert('success', 'Despesa cadastrada com sucesso!')
         console.log('Válido')
+        // Limpando os campos do formulário
+        year.value = ''
+        month.value = ''
+        day.value = ''
+        type.value = ''
+        description.value = ''
+        val.value = ''
     } else {
         console.log('Inválido')
-        messageAlert('danger', 'Não foi possível cadastrar sua despesa!')
+        messageAlert('danger', 'Não foi possível cadastrar sua despesa! Verifique se os campos foram preenchidos!')
     }
 }
 
@@ -99,11 +105,13 @@ function messageAlert(type, message) { // Alert
         alert.classList.remove('fade')
         setTimeout(() => {
             alert.classList.add('fade')
+            alert.classList.remove(`alert-${type}`)
         }, 3000); // Visível por 3s
     }
 
     alert.classList.add(`alert-${type}`)
     alert.textContent = message
+
 }
 
 function getList() {
