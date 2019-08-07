@@ -16,7 +16,7 @@ class Expense {
             }
         }
         return true
-    } 
+    }
 }
 
 // Classe que simula um banco de dados com localStorage
@@ -29,17 +29,32 @@ class DB {
         }
     }
 
-    getId() {
+    getId() { // Gerencia o id das despesas
         let nextId = localStorage.getItem('id')
         return parseInt(nextId) + 1
     }
 
-    setStorage(expense) {
+    setStorage(expense) { // Armazena a despesa em localStorage
         let id = this.getId()
 
-        localStorage.setItem(`${id}`, JSON.stringify(expense))
+        localStorage.setItem(`${id}`, JSON.stringify(expense)) // Transforma o objeto literal em um json string
 
         localStorage.setItem('id', id)
+    }
+
+    getAllExpense() {
+        let expenses = []
+
+        let id = localStorage.getItem('id')
+
+        for (let i = 1; i <= id; i++) { // Bucas as despesas por id
+            let expense = JSON.parse(localStorage.getItem(i)); // Transforma um json em objeto literal
+            if (expense === null) {
+                continue
+            }
+            expenses.push(expense) //Adiciona todas as despesas no array
+        }
+        return expenses
     }
 }
 /*------------------------------ 
@@ -50,7 +65,7 @@ let db = new DB()
 
 // Cadastrando nova despesa
 function registerExpense() {
-    let year = document.querySelector('#ano') // Mais próximo do jquery
+    let year = document.querySelector('#ano') // Acessando os elementos do formulário 
     let month = document.querySelector('#mes')
     let day = document.querySelector('#dia')
     let type = document.querySelector('#tipo')
@@ -69,16 +84,16 @@ function registerExpense() {
 
     if (expense.validator()) {
         db.setStorage(expense)
-        handlerError('success', 'Despesa cadastrada com sucesso!')
+        messageAlert('success', 'Despesa cadastrada com sucesso!')
         console.log('Válido')
     } else {
         console.log('Inválido')
-        handlerError('danger', 'Não foi possível cadastrar sua despesa!')
+        messageAlert('danger', 'Não foi possível cadastrar sua despesa!')
     }
 }
 
-function handlerError(type, message) {
-    let alert = document.querySelector('#handlerError') 
+function messageAlert(type, message) { // Alert 
+    let alert = document.querySelector('#messageAlert')
 
     if (alert.classList.contains('fade')) { // Verificando se o alert está em modo fade(escondido)
         alert.classList.remove('fade')
@@ -87,9 +102,16 @@ function handlerError(type, message) {
         }, 3000); // Visível por 3s
     }
 
-    alert.classList.add(`alert-${type}`) 
+    alert.classList.add(`alert-${type}`)
     alert.textContent = message
-
-
 }
 
+function getList() {
+    let expenses = []
+
+    expenses = db.getAllExpense()
+
+    let [ano, mes, dia, tipo, descricao] = expenses
+
+    // Iniciar a demonstracao na view
+}

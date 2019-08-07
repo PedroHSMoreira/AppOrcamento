@@ -21,7 +21,6 @@
 
   <!-- Font Awesome -->
   <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
-  <link rel="stylesheet" href="./styles.css">
   <script src="./app.js"></script>
 </head>
 
@@ -52,7 +51,7 @@
     </div>
   </nav>
   <div class="d-flex flex-row-reverse bd-highlight">
-      <div class="alert mr-5 fade" role="alert" id="handlerError"></div>
+      <div class="alert mr-5 fade" role="alert" id="messageAlert"></div>
     </div>
   <div class="container">
     <div class="row">
@@ -113,7 +112,7 @@
       </div>
 
       <div class="col-md-2 d-flex justify-content-end">
-        <button id="btnAdd" type="button" class="btn btn-primary disabled" onclick="registerExpense()">
+        <button id="btnAdd" type="button" class="btn btn-primary" onclick="registerExpense()">
           <i class="fas fa-plus"></i>
         </button>
       </div>
