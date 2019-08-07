@@ -111,7 +111,34 @@ function getList() {
 
     expenses = db.getAllExpense()
 
-    let [ano, mes, dia, tipo, descricao] = expenses
+    let tableExpenses = document.querySelector('#tableExpenses')
 
-    // Iniciar a demonstracao na view
+    expenses.forEach(el => {
+        let row = tableExpenses.insertRow() // Insere linhas <tr> no body da tabela
+
+        // Insere colunas <td> nas linhas
+        row.insertCell(0).innerHTML = `${el.dia}/${el.mes}/${el.ano}`
+        // Tratativa do campo tipo
+        switch (el.tipo) {
+            case '1':
+                el.tipo = 'Alimentação'
+                break;
+            case '2':
+                el.tipo = 'Educação'
+                break;
+            case '3':
+                el.tipo = 'Lazer'
+                break;
+            case '4':
+                el.tipo = 'Saúde'
+                break;
+            case '5':
+                el.tipo = 'Transporte'
+                break;
+        }
+        row.insertCell(1).innerHTML = el.tipo
+        row.insertCell(2).innerHTML = el.descricao
+        row.insertCell(3).innerHTML = el.valor
+    });
+
 }
