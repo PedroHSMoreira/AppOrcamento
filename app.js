@@ -59,6 +59,10 @@ class DB {
     }
     return expenses;
   }
+
+  search() {
+      
+  }
 }
 /*------------------------------ 
     Controllers da aplicação 
@@ -155,4 +159,8 @@ function getList() {
     row.insertCell(2).innerHTML = el.description;
     row.insertCell(3).innerHTML = el.val;
   });
+}
+
+function searchExpense() {
+
 }
