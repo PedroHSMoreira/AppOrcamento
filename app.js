@@ -315,5 +315,5 @@ async function updateExpense() {
   messageAlert('success', 'Despesa atualizada com sucesso!')
   setTimeout(() => {
     document.location.reload()
-  }, 1000)
+  }, 3000)
 }
